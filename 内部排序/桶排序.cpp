@@ -1,22 +1,25 @@
 #include <stdio.h>
 
-// Í°ÅÅĞò, Í°ÅÅĞò²»Ö§³Ö¸ºÊı, 
+// æ¡¶æ’åº, æ¡¶æ’åºä¸æ”¯æŒè´Ÿæ•°, 
+// wangjia
+// å…¸å‹ä»¥ç©ºé—´æ¢é€Ÿåº¦
+// data[i]å‡ºç°æ¬¡æ•°å€¼ä¸ºmap[ data[i] ]å€¼ ;æœ€åå¾ªç¯mapä¸€æ¬¡æŒ‰å¾ªåºå­˜æ”¾åœ¨dataä¸­å®Œæˆæ’åº line 19-21
+#define MAX_SIZE 1000	// æœ€å¤§æ•°æ®
 
-#define MAX_SIZE 1000	// ×î´óÊı¾İ
 
-// ÀàËÆµØÍ¼±ê¼Ç·¨
+// ç±»ä¼¼åœ°å›¾æ ‡è®°æ³•
 void tong_sort(int *data, int n)
 {
 	unsigned short int map[MAX_SIZE];
 	int i, j;
 
-	// map[i] ¼ÇÂ¼ i ³öÏÖÁË¶àÉÙ´Î
+	// map[i] è®°å½• i å‡ºç°äº†å¤šå°‘æ¬¡
 	for (i=0; i<MAX_SIZE; i++) map[i] = 0;
 	for (i=0; i<n; i++) map[ data[i] ]++;
 	for (j=i=0; i<MAX_SIZE; i++)
 	{
 		while (map[i]--) data[j++] = i;
-	}	// ´ÎÊı--, data[j] ¼ÇÂ¼ÔªËØ
+	}	// æ¬¡æ•°--, data[j] è®°å½•å…ƒç´ 
 }
 
 int main(void)
@@ -24,12 +27,12 @@ int main(void)
 	int i, n;
 	int data[100];
 
-	printf("ÇëÊäÈë n, ¼° n ¸öÔªËØ: ");
+	printf("è¯·è¾“å…¥ n, åŠ n ä¸ªå…ƒç´ : ");
 	scanf("%d", &n);
 	for (i=0; i<n; i++) scanf("%d", data + i);
 
 	tong_sort(data, n);
-	printf("ÅÅĞòºó: ");
+	printf("æ’åºå: ");
 	for (i=0; i<n; i++) printf("%d, ", data[i]);
 	printf("\n\n");
 	return 0;
