@@ -1,39 +1,41 @@
 #include <stdio.h>
 #include <malloc.h>
 
-// �Ľ���Ͱ����, ֧�ָ���
+// 改进的桶排序, 支持负数
 
-#define SIZE 1000000	// ������ռ�
+#define SIZE 1000000	// 最大辅助空间
 
-// �㷨: �ҵ�һ����С��, ����, �����ֵ, ����ʱ����
-// ��ԭ��������ǰ��, ��С������ 0 λ��
-// ���� ��С�� -1, �ǾͰ� -1 ���� 0 λ��,
+// 算法: 找到一个最小的, 最大的, 计算差值, 开临时数组
+// 将原数组整体前移, 最小的数在 0 位置
+// 比如 最小是 -1, 那就把 -1 放在 0 位置,
+// wangjia
+// 与普通的桶排序优势 1：可以排序负数 2：额外开辟空间大小位(max-min)
 void tong_sort(int *data, int n)
 {
 	int min = 0xFFFFFFF;
 	int max = -0xFFFFFFF;
 	int j, i, size;
-	short int *map;		// ��ʱ�ռ�
+	short int *map;		// 临时空间
 
-	for (i=0; i<n; i++)		// ���ҳ���ֵ
+	for (i=0; i<n; i++)		// 先找出最值
 	{
 		if (data[i] > max) max = data[i];
 		if (data[i] < min) min = data[i];
 	}
 	size = max-min;
-	if (size > SIZE) return ;	// ��ֹ̫����
+	if (size > SIZE) return ;	// 防止太大了
 	map = (short int *)malloc((size+2) * sizeof(short int));
 
-	for (i=0; i<=size; i++) map[i] = -1;		// ��ʼ
+	for (i=0; i<=size; i++) map[i] = -1;		// 初始
 	for (i=0; i<n; i++) 
 	{
-		map[ data[i] - min ]++;		// ���
+		map[ data[i] - min ]++;		// 标记
 	}
-	for (j=i=0; i<=size; i++)		// ����
+	for (j=i=0; i<=size; i++)		// 回收
 	{
 		while (map[i] != -1) 
 		{
-			data[j++] = i + min;	// �ӻز�ֵ min
+			data[j++] = i + min;	// 加回差值 min
 			map[i]--;
 		}
 	}
@@ -45,12 +47,12 @@ int main(void)
 	int i, n;
 	int data[100];
 
-	printf("������ n, �� n ��Ԫ��: ");
+	printf("请输入 n, 及 n 个元素: ");
 	scanf("%d", &n);
 	for (i=0; i<n; i++) scanf("%d", data + i);
 
 	tong_sort(data, n);
-	printf("�����: ");
+	printf("排序后: ");
 	for (i=0; i<n; i++) printf("%d, ", data[i]);
 	printf("\n\n");
 	return 0;
