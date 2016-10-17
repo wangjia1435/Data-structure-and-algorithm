@@ -1,13 +1,15 @@
 #include <stdio.h>
 
-// ð������, �����ϸ�, С���³�
+// 冒泡排序, 大数上浮, 小数下沉
+// wangjia
+// 比普通冒泡增加了一个判断条件 当冒泡循环一次里面交换次数<=1次时，可以判断数据已经是有序的了，不需要再继续。
 void msort(int *data, int n)
 {
 	int tmp;
 	int i, j;
-	int last;		// ��¼��󽻻�����
+	int last;		// 记录最后交换次数
 
-	// n ��Ԫ��, ����� n-1 ��
+	// n 个元素, 最多拍 n-1 趟
 	for (i=0; i<n-1; i++)
 	{
 		last = 0;
@@ -18,7 +20,7 @@ void msort(int *data, int n)
 				tmp = data[j];
 				data[j] = data[j+1];
 				data[j+1] = tmp;
-				last = j;		// ��¼
+				last = j;		// 记录
 			}
 		}
 		if (last == 0) break;
@@ -30,12 +32,12 @@ int main(void)
 	int i, n;
 	int data[100];
 
-	printf("������ n, �� n ��Ԫ��: ");
+	printf("请输入 n, 及 n 个元素: ");
 	scanf("%d", &n);
 	for (i=0; i<n; i++) scanf("%d", data + i);
 
 	msort(data, n);
-	printf("�����: ");
+	printf("排序后: ");
 	for (i=0; i<n; i++) printf("%d, ", data[i]);
 	printf("\n\n");
 	return 0;
